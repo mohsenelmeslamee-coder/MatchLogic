@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>تفاصيل المباراة</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+</head>
+<body>
+
+<header class="top-bar match-detail-header">
+  <button type="button" class="btn-back" onclick="goBack()">⬅ رجوع</button>
+  <h1>تفاصيل المباراة</h1>
+</header>
+
+<main class="match-detail-main">
+  <div class="match-detail-tabs" role="tablist">
+    <button type="button" role="tab" id="tabEvents" class="match-detail-tab active" aria-selected="true" data-tab="events">الأحداث</button>
+    <button type="button" role="tab" id="tabLineups" class="match-detail-tab" aria-selected="false" data-tab="lineups">التشكيلة</button>
+    <button type="button" role="tab" id="tabStatistics" class="match-detail-tab" aria-selected="false" data-tab="statistics">الإحصائيات</button>
+  </div>
+  <div id="matchDetails" class="match-detail-content">
+    <div id="panelEvents" class="match-detail-panel active" role="tabpanel">
+      <p class="loading">جاري التحميل...</p>
+    </div>
+    <div id="panelLineups" class="match-detail-panel" role="tabpanel" hidden>
+      <p class="loading">جاري التحميل...</p>
+    </div>
+    <div id="panelStatistics" class="match-detail-panel" role="tabpanel" hidden>
+      <p class="loading">جاري التحميل...</p>
+    </div>
+  </div>
+</main>
+
+<script src="js/match.js"></script>
+</body>
+</html>

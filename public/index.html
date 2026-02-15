@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MatchLogic" />
+  <title>MatchLogic</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+</head>
+<body>
+
+  <header class="top-bar">
+    <h1 class="logo">⚽ MatchLogic</h1>
+    <nav class="tabs">
+      <button onclick="changePage('today')" id="todayTab" class="active">اليوم</button>
+      <button onclick="changePage('yesterday')" id="yesterdayTab">الأمس</button>
+      <button onclick="changePage('tomorrow')" id="tomorrowTab">الغد</button>
+      <button onclick="changePage('favorites')" id="favoritesTab">⭐ المفضلة</button>
+      <button onclick="changePage('settings')" id="settingsTab">⚙ الإعدادات</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="matchesContainer" class="matches"></div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/service-worker.js", { scope: "/" })
+          .then(function () {})
+          .catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
