@@ -17,13 +17,12 @@ app.use(maintenanceMode);
 
 // Explicit root route for maintenance page
 app.get('/', (req, res) => {
-  res.status(503).set({
-    'Content-Type': 'text/html; charset=utf-8',
-    'Cache-Control': 'no-cache, no-store, must-revalidate',
-    'Pragma': 'no-cache',
-    'Expires': '0',
-    'Retry-After': '3600'
-  });
+  res.status(503);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Retry-After', '3600');
 
   const maintenancePage = `
 <!DOCTYPE html>
