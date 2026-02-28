@@ -1,0 +1,237 @@
+const express = require('express');
+const path = require('path');
+
+// Maintenance mode middleware
+function maintenanceMode(req, res, next) {
+  // Send 503 status with proper headers for SEO
+  res.status(503).set({
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+    'Retry-After': '3600' // Tell search engines to retry in 1 hour
+  });
+
+  // HTML maintenance page
+  const maintenancePage = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchLogic - Under Maintenance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .maintenance-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .status-code {
+            font-size: 6rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .contact {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .contact-info {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .countdown {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #FFD700;
+        }
+        
+        @media (max-width: 768px) {
+            .maintenance-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .status-code {
+                font-size: 4rem;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-container">
+        <div class="logo">⚽ MatchLogic</div>
+        <div class="status-code">503</div>
+        <h1 class="title">Under Maintenance</h1>
+        
+        <div class="spinner"></div>
+        
+        <p class="message">
+            We are currently upgrading our systems to provide you with a better experience. 
+            For any inquiries, feel free to contact us at: mohsenelmeslamee@gmail.com
+        </p>
+        
+        <div class="countdown" id="countdown">
+            We'll be back shortly!
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">Performance Boost</div>
+                <div class="feature-desc">Faster loading times</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔧</div>
+                <div class="feature-title">System Updates</div>
+                <div class="feature-desc">Improved stability</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <div class="feature-title">New Features</div>
+                <div class="feature-desc">Enhanced user experience</div>
+            </div>
+        </div>
+        
+        <div class="contact">
+            <p class="contact-info">
+                <strong>For any inquiries, feel free to contact us at:</strong><br>
+                mohsenelmeslamee@gmail.com
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Simple countdown animation
+        let seconds = 3600; // 1 hour
+        const countdownEl = document.getElementById('countdown');
+        
+        function updateCountdown() {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            if (hours > 0) {
+                countdownEl.textContent = \`Back in \${hours}h \${minutes}m \${secs}s\`;
+            } else if (minutes > 0) {
+                countdownEl.textContent = \`Back in \${minutes}m \${secs}s\`;
+            } else {
+                countdownEl.textContent = \`Back in \${secs}s\`;
+            }
+            
+            if (seconds > 0) {
+                seconds--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                countdownEl.textContent = 'Launching soon...';
+                setTimeout(() => window.location.reload(), 5000);
+            }
+        }
+        
+        updateCountdown();
+    </script>
+</body>
+</html>
+  `;
+  
+  res.send(maintenancePage);
+}
+
+module.exports = maintenanceMode;

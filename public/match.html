@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="4j-DHV11xyynfH_ro20u7hpc0N0mR9B2go81mn4zAqc" />
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MatchLogic" />
+  
+  <!-- Enhanced SEO Meta Tags -->
+  <meta name="description" content="MatchLogic - Detailed match analysis with AI predictions, live scores, team lineups, statistics, and head-to-head records. Get comprehensive football match insights." />
+  <meta name="keywords" content="football match, AI prediction, live scores, team lineups, match statistics, head-to-head, soccer analysis, premier league, champions league" />
+  <meta name="author" content="MatchLogic" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="ar" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="MatchLogic - AI Football Match Analysis" />
+  <meta property="og:description" content="Get detailed football match analysis with AI predictions, live scores, team lineups, and comprehensive statistics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://matchlogic.vercel.app/match.html" />
+  <meta property="og:image" content="https://matchlogic.vercel.app/icons/icon-512x512.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="ar_AR" />
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MatchLogic - AI Football Match Analysis" />
+  <meta name="twitter:description" content="Get detailed football match analysis with AI predictions, live scores, team lineups, and comprehensive statistics." />
+  <meta name="twitter:image" content="https://matchlogic.vercel.app/icons/icon-512x512.png" />
+  
+  <!-- Additional SEO Tags -->
+  <meta name="application-name" content="MatchLogic" />
+  <meta name="msapplication-TileColor" content="#0f172a" />
+  <meta name="msapplication-TileImage" content="https://matchlogic.vercel.app/icons/icon-512x512.png" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://matchlogic.vercel.app/match.html" />
+  
+  <title>MatchLogic - AI Football Match Analysis</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ai-emergency-fix.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" sizes="192x192" href="/icons/icon-192x192.png" />
+  <link rel="icon" sizes="512x512" href="/icons/icon-512x512.png" />
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/style.css" as="style" />
+  <link rel="preload" href="js/match.js" as="script" />
+  
+  <!-- DNS Prefetch for Performance -->
+  <link rel="dns-prefetch" href="//api-football-v1.p.rapidapi.com" />
+</head>
+<body>
+
+<header class="top-bar match-detail-header">
+  <button type="button" class="btn-back" onclick="goBack()">⬅ رجوع</button>
+  <h1>تفاصيل المباراة</h1>
+</header>
+
+<main class="match-detail-main">
+  <div class="match-detail-tabs" role="tablist">
+    <button type="button" role="tab" id="tabEvents" class="match-detail-tab active" aria-selected="true" data-tab="events">الأحداث</button>
+    <button type="button" role="tab" id="tabLineups" class="match-detail-tab" aria-selected="false" data-tab="lineups">التشكيلة</button>
+    <button type="button" role="tab" id="tabStatistics" class="match-detail-tab" aria-selected="false" data-tab="statistics">الإحصائيات</button>
+    <button type="button" role="tab" id="tabAI" class="match-detail-tab" aria-selected="false" data-tab="ai">تحليل الذكاء الاصطناعي</button>
+    <button type="button" role="tab" id="tabMatches" class="match-detail-tab" aria-selected="false" data-tab="matches">المباريات</button>
+  </div>
+  <div id="matchDetails" class="match-detail-content">
+    <div id="panelEvents" class="match-detail-panel active" role="tabpanel">
+      <p class="loading">جاري التحميل...</p>
+    </div>
+    <div id="panelLineups" class="match-detail-panel" role="tabpanel" hidden>
+      <p class="loading">جاري التحميل...</p>
+    </div>
+    <div id="panelStatistics" class="match-detail-panel" role="tabpanel" hidden>
+      <p class="loading">جاري التحميل...</p>
+    </div>
+    <div id="panelAI" class="match-detail-panel" role="tabpanel" hidden>
+      <div id="aiPrediction">
+        <p class="loading">جاري تحليل الذكاء الاصطناعي...</p>
+      </div>
+    </div>
+    <div id="panelMatches" class="match-detail-panel" role="tabpanel" hidden>
+      <p class="loading">جاري التحميل...</p>
+    </div>
+  </div>
+</main>
+
+<script src="js/match.js"></script>
+</body>
+</html>
