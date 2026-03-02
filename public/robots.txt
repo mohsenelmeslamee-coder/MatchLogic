@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://matchlogic.vercel.app/sitemap.xml
+
+# Allow search engines to crawl all content
+Allow: /css/
+Allow: /js/
+Allow: /icons/
+Allow: /manifest.json
+
+# Block unnecessary files
+Disallow: /node_modules/
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /.env
+Disallow: /server.js
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
